@@ -13,6 +13,7 @@ use App\Http\Controllers\BookingAdminController;
 use App\Http\Controllers\BookingManageController;
 use App\Http\Controllers\FinanceReportController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -20,10 +21,15 @@ use App\Http\Controllers\FinanceReportController;
 */
 
 // Halaman login & register
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+// Halaman login & register (tidak boleh diakses jika sudah login)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+});
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -71,30 +77,49 @@ Route::middleware('auth')->group(function () {
     | Admin Routes
     |--------------------------------------------------------------------------
     */
-    Route::middleware('admin')->group(function () {
+    // Route::middleware('admin')->group(function () {
 
-        // Branches
-        Route::resource('branches', BranchController::class);
+    //     // Branches
+    //     Route::resource('branches', BranchController::class);
 
-        // Items (PS, kamera, alat)
-        Route::resource('items', ItemController::class);
+    //     // Items (PS, kamera, alat)
+    //     Route::resource('items', ItemController::class);
 
-        // Semua booking (admin)
-        Route::get('/admin/bookings', [BookingController::class, 'adminIndex'])
-             ->name('admin.bookings');
+    //     // Semua booking (admin)
+    //     Route::get('/admin/bookings', [BookingController::class, 'adminIndex'])
+    //          ->name('admin.bookings');
 
-        // Finance Report
-        Route::get('/finance-reports', [FinanceReportController::class, 'index'])
-             ->name('finance.index');
+    //     // Finance Report
+    //     Route::get('/finance-reports', [FinanceReportController::class, 'index'])
+    //          ->name('finance.index');
 
-        Route::post('/finance-reports/generate', [FinanceReportController::class, 'generate'])
-             ->name('finance.generate');
-    });
+    //     Route::post('/finance-reports/generate', [FinanceReportController::class, 'generate'])
+    //          ->name('finance.generate');
+    // });
 
-   
+});
 
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::resource('items', ItemController::class);
+// });
 
+Route::middleware(['auth', 'admin'])->group(function () {
 
+    // Items Index (List)
+    Route::get('/items', [ItemController::class, 'index'])->name('items.index');
 
+    // Create Form
+    Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
 
+    // Store Data
+    Route::post('/items', [ItemController::class, 'store'])->name('items.store');
+
+    // Edit Form
+    Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
+
+    // Update Data
+    Route::put('/items/{item}', [ItemController::class, 'update'])->name('items.update');
+
+    // Delete Data
+    Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
 });

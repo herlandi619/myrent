@@ -8,14 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable = [
-        'branch_id',
-        'name',
-        'type',
-        'hourly_rate',
-        'daily_rate',
-        'status'
-    ];
+    protected $guarded = [];
 
     public function branch()
     {
