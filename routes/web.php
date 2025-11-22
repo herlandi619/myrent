@@ -2,10 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\BookingAdminController;
+use App\Http\Controllers\BookingManageController;
 use App\Http\Controllers\FinanceReportController;
 
 /*
@@ -85,4 +90,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/finance-reports/generate', [FinanceReportController::class, 'generate'])
              ->name('finance.generate');
     });
+
+   
+
+
+
+
+
 });
