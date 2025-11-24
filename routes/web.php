@@ -72,36 +72,9 @@ Route::middleware('auth')->group(function () {
     // Receipt
     Route::get('/payment/receipt/{payment}', [PaymentController::class, 'receipt'])->name('payment.receipt');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Admin Routes
-    |--------------------------------------------------------------------------
-    */
-    // Route::middleware('admin')->group(function () {
-
-    //     // Branches
-    //     Route::resource('branches', BranchController::class);
-
-    //     // Items (PS, kamera, alat)
-    //     Route::resource('items', ItemController::class);
-
-    //     // Semua booking (admin)
-    //     Route::get('/admin/bookings', [BookingController::class, 'adminIndex'])
-    //          ->name('admin.bookings');
-
-    //     // Finance Report
-    //     Route::get('/finance-reports', [FinanceReportController::class, 'index'])
-    //          ->name('finance.index');
-
-    //     Route::post('/finance-reports/generate', [FinanceReportController::class, 'generate'])
-    //          ->name('finance.generate');
-    // });
-
 });
 
-// Route::middleware(['auth', 'admin'])->group(function () {
-//     Route::resource('items', ItemController::class);
-// });
+
 
 Route::middleware(['auth', 'admin'])->group(function () {
 
@@ -123,3 +96,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Delete Data
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
 });
+
