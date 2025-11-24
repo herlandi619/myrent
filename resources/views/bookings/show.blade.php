@@ -39,12 +39,17 @@
             </span>
         </p>
 
-        @if($booking->status == 'pending')
+        <a href="/bookings"
+               class="block w-full text-center bg-blue-600 text-white font-semibold py-2.5 rounded-lg shadow hover:bg-blue-700 transition">
+                Kembali
+            </a>
+
+        {{-- @if($booking->status == 'pending')
             <a href="/payment/{{ $booking->id }}"
                class="block w-full text-center bg-blue-600 text-white font-semibold py-2.5 rounded-lg shadow hover:bg-blue-700 transition">
                 Bayar Sekarang
             </a>
-        @endif
+        @endif --}}
 
     </div>
 </div>

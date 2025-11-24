@@ -54,7 +54,8 @@
                         @if(auth()->user()->role === 'admin')
                             <li><a href="/items" class="hover:text-gray-300">Items</a></li>
                             <li><a href="/branches" class="hover:text-gray-300">Cabang</a></li>
-                            <li><a href="/finance-reports" class="hover:text-gray-300">Keuangan</a></li>
+                            <li><a href="/admin/bookings" class="block hover:text-gray-300">Kelola Booking</a></li>
+                        
                         @endif
 
                         <!-- Logout Button Icon -->
@@ -86,7 +87,8 @@
                     @if(auth()->user()->role === 'admin')
                         <li><a href="/items" class="block hover:text-gray-300">Items</a></li>
                         <li><a href="/branches" class="block hover:text-gray-300">Cabang</a></li>
-                        <li><a href="/finance-reports" class="block hover:text-gray-300">Keuangan</a></li>
+                        <li><a href="/admin/bookings" class="block hover:text-gray-300">Kelola Booking</a></li>
+                        
                     @endif
 
                     <li>

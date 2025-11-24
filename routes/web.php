@@ -108,3 +108,15 @@ Route::middleware('admin')->group(function () {
     Route::delete('/branches/delete/{id}', [BranchController::class, 'destroy'])->name('branches.delete');
 
 });
+
+Route::middleware('admin')->group(function () {
+
+    // Kelola Booking Admin
+    Route::get('/admin/bookings', [BookingController::class, 'adminIndex2'])->name('admin.bookings');
+    Route::post('/admin/bookings/{id}/accept', [BookingController::class, 'accept'])->name('admin.bookings.accept');
+    Route::post('/admin/bookings/{id}/reject', [BookingController::class, 'reject'])->name('admin.bookings.reject');
+    Route::post('/admin/bookings/{id}/ongoing', [BookingController::class, 'ongoing'])->name('admin.bookings.ongoing');
+    Route::post('/admin/bookings/{id}/done', [BookingController::class, 'done'])->name('admin.bookings.done');
+
+});
+

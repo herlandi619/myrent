@@ -116,6 +116,42 @@ class BookingController extends Controller
 
         return view('schedules.index', compact('schedules'));
     }
+
+
+
+    /////////////////////////////////////////////////////////////////////////
+    public function adminIndex2()
+    {
+        $bookings = Booking::with(['item', 'branch', 'user'])
+                    ->orderBy('start_time', 'DESC')
+                    ->get();
+
+        return view('admin.bookings.index', compact('bookings'));
+    }
+
+    public function accept($id)
+    {
+        Booking::where('id', $id)->update(['status' => 'accepted']);
+        return back()->with('success', 'Booking diterima.');
+    }
+
+    public function reject($id)
+    {
+        Booking::where('id', $id)->update(['status' => 'rejected']);
+        return back()->with('success', 'Booking ditolak.');
+    }
+
+    public function ongoing($id)
+    {
+        Booking::where('id', $id)->update(['status' => 'ongoing']);
+        return back()->with('success', 'Booking sedang berjalan.');
+    }
+
+    public function done($id)
+    {
+        Booking::where('id', $id)->update(['status' => 'done']);
+        return back()->with('success', 'Booking selesai.');
+    }
 }
 
 

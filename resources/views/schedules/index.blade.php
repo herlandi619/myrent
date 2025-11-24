@@ -16,7 +16,7 @@
                     <th class="p-3 text-left">Cabang</th>
                     <th class="p-3 text-left">Mulai</th>
                     <th class="p-3 text-left">Selesai</th>
-                    <th class="p-3 text-left">Status Pembayaran</th>
+                    <th class="p-3 text-left">Status</th>
                 </tr>
             </thead>
 
