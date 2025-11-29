@@ -1,34 +1,79 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Booking;
-use PDF;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Payment;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
-    public function index() {
-        return view('admin.reports.index');
+    public function index()
+    {
+        return view('admin.laporan.index');
     }
 
-    public function pdf($type) {
-        $data = $this->getData($type);
-        $pdf = PDF::loadView('admin.reports.pdf', compact('data'));
-        return $pdf->download("laporan-$type.pdf");
+    public function harian()
+    {
+        $data = Payment::whereDate('created_at', today())
+                       ->where('status', 'paid')
+                       ->get();
+
+        return view('admin.laporan.hasil', [
+            'title' => 'Laporan Harian',
+            'jenis' => 'harian',
+            'data'  => $data
+        ]);
     }
 
-    public function excel($type) {
-        $data = $this->getData($type);
-        return Excel::download(new \App\Exports\ReportExport($data),"laporan-$type.xlsx");
+    public function mingguan()
+    {
+        $data = Payment::whereBetween('created_at', [
+                        now()->startOfWeek(),
+                        now()->endOfWeek()
+                    ])
+                    ->where('status','paid')
+                    ->get();
+
+        return view('admin.laporan.hasil', [
+            'title' => 'Laporan Mingguan',
+            'jenis' => 'mingguan',
+            'data'  => $data
+        ]);
     }
 
-    private function getData($type) {
-        return match($type) {
-            'daily' => Booking::whereDate('created_at', today())->get(),
-            'weekly' => Booking::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->get(),
-            'monthly' => Booking::whereMonth('created_at', now()->month)->get(),
-        };
+    public function bulanan()
+    {
+        $data = Payment::whereMonth('created_at', now()->month)
+                       ->where('status','paid')
+                       ->get();
+
+        return view('admin.laporan.hasil', [
+            'title' => 'Laporan Bulanan',
+            'jenis' => 'bulanan',
+            'data'  => $data
+        ]);
+    }
+
+    public function cetak($jenis)
+    {
+        if ($jenis === 'harian') {
+            $title = 'Laporan Harian';
+            $data = Payment::whereDate('created_at', today())->get();
+
+        } elseif ($jenis === 'mingguan') {
+            $title = 'Laporan Mingguan';
+            $data = Payment::whereBetween('created_at', [
+                now()->startOfWeek(),
+                now()->endOfWeek()
+            ])->get();
+
+        } else {
+            $title = 'Laporan Bulanan';
+            $data = Payment::whereMonth('created_at', now()->month)->get();
+        }
+
+        $pdf = Pdf::loadView('admin.laporan.pdf', compact('title', 'data'));
+        return $pdf->download($title.'.pdf');
     }
 }

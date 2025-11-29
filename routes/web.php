@@ -95,6 +95,25 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Delete Data
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
+
+
+    // CETAK LAPORAN
+    Route::get('/admin/laporan', [ReportController::class, 'index'])
+        ->name('laporan.index');
+
+    Route::post('/admin/laporan/harian', [ReportController::class, 'harian'])
+        ->name('laporan.harian');
+
+    Route::post('/admin/laporan/mingguan', [ReportController::class, 'mingguan'])
+        ->name('laporan.mingguan');
+
+    Route::post('/admin/laporan/bulanan', [ReportController::class, 'bulanan'])
+        ->name('laporan.bulanan');
+
+    Route::get('/admin/laporan/cetak/{jenis}', [ReportController::class, 'cetak'])
+        ->name('laporan.cetak');
+    
+
 });
 
 Route::middleware('admin')->group(function () {
