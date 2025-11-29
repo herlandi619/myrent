@@ -20,9 +20,14 @@
         </a>
     </div>
 
-    <!-- Laporan Keuangan -->
+   
+        @auth
+    @if(auth()->user()->role === 'admin')
+
+     <!-- Laporan Keuangan -->
     <div class="bg-white shadow-md rounded-xl p-6">
         <h3 class="text-xl font-semibold text-gray-700 mb-4">Laporan Keuangan (Admin)</h3>
+
 
         <div class="flex flex-wrap gap-4">
 
@@ -53,8 +58,12 @@
                 </button>
             </form>
 
+            </div>
         </div>
-    </div>
+
+    @endif
+@endauth
+   
 
 </div>
 

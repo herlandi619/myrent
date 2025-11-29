@@ -54,6 +54,9 @@
                         </form>
                     @endif
 
+                    {{-- buatkan proses pembayaran lewat admin disini --}}
+
+
                 </td>
             </tr>
             @endforeach
