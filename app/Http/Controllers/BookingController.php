@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Payment;
 use App\Models\Item;
 use App\Models\Branch;
 use Illuminate\Http\Request;
@@ -152,6 +153,39 @@ class BookingController extends Controller
         Booking::where('id', $id)->update(['status' => 'done']);
         return back()->with('success', 'Booking selesai.');
     }
+
+    // payment admin
+    public function pay(Request $request, $id)
+    {
+        $booking = Booking::findOrFail($id);
+
+        // Cek apakah sudah dibayar
+        if ($booking->payment) {
+            return back()->with('success', 'Booking ini sudah dibayar.');
+        }
+
+        // Validasi payment method
+        $request->validate([
+            'method' => 'required|in:cash,qris',
+        ]);
+
+        // Buat payment entry
+        $payment = Payment::create([
+            'booking_id' => $booking->id,
+            'amount' => $booking->total_price,
+            'method' => $request->method,
+            'status' => 'paid',
+        ]);
+
+        // Update status booking menjadi paid
+        $booking->status = 'paid';
+        $booking->save();
+
+        return back()->with('success', 'Pembayaran berhasil diproses oleh admin.');
+    }
+
+
+
 }
 
 

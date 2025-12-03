@@ -55,6 +55,28 @@
                     @endif
 
                     {{-- buatkan proses pembayaran lewat admin disini --}}
+                   {{-- Pembayaran (hanya muncul jika booking DONE dan belum dibayar) --}}
+                    @if($b->status == 'done' && !$b->payment)
+                        <form action="{{ route('admin.bookings.pay', $b->id) }}" method="POST" class="inline">
+                            @csrf
+                            
+                            <select name="method" class="border rounded px-2 py-1">
+                                <option value="cash">Cash</option>
+                                <option value="qris">QRIS</option>
+                            </select>
+
+                            <button class="px-2 py-1 bg-purple-600 text-white rounded">
+                                Bayar
+                            </button>
+                        </form>
+                    @endif
+
+                    @if($b->payment)
+                        <span class="px-2 py-1 bg-green-700 text-white rounded">
+                            Sudah Dibayar ({{ strtoupper($b->payment->method) }})
+                        </span>
+                    @endif
+
 
 
                 </td>

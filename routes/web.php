@@ -69,6 +69,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment/{booking_id}', [PaymentController::class, 'create'])->name('payment.create');
     Route::post('/payment/{booking_id}', [PaymentController::class, 'store'])->name('payment.store');
 
+    // payment admin
+    Route::post('/admin/bookings/{id}/pay', [BookingController::class, 'pay'])
+    ->name('admin.bookings.pay');
+
+
+
     // Receipt
     Route::get('/payment/receipt/{payment}', [PaymentController::class, 'receipt'])->name('payment.receipt');
 

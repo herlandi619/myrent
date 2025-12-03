@@ -52,9 +52,43 @@
                         </li>
 
                         @if(auth()->user()->role === 'admin')
-                            <li><a href="/items" class="hover:text-gray-300">Items</a></li>
-                            <li><a href="/branches" class="hover:text-gray-300">Cabang</a></li>
-                            <li><a href="/admin/bookings" class="block hover:text-gray-300">Kelola Booking</a></li>
+                            {{-- <li><a href="/items" class="hover:text-gray-300 {{ Request::is('items*') ? 'text-yellow-400 font-semibold' : 'text-white' }}">Items</a></li>
+                            <li><a href="/branches" class="hover:text-gray-300 {{ Request::is('branches*') ? 'text-yellow-400 font-semibold' : 'text-white' }}">Cabang</a></li> --}}
+
+                            <li class="relative group">
+                                <button class="hover:text-gray-300 flex items-center gap-1">
+                                    Kelola Data
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown -->
+                                <ul class="absolute left-0 mt-2 w-40 bg-gray-900 shadow-lg rounded-md opacity-0 invisible 
+                                        group-hover:opacity-100 group-hover:visible transition-all duration-200">
+
+                                    <li>
+                                        <a href="/items"
+                                            class="block px-4 py-2 hover:bg-gray-700 
+                                            {{ Request::is('items*') ? 'text-yellow-400 font-semibold' : 'text-white' }}">
+                                            Items
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/branches"
+                                            class="block px-4 py-2 hover:bg-gray-700 
+                                            {{ Request::is('branches*') ? 'text-yellow-400 font-semibold' : 'text-white' }}">
+                                            Cabang
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li><a href="/admin/bookings" class="block hover:text-gray-300 {{ Request::is('admin/bookings*') ? 'text-yellow-400 font-semibold' : 'text-white' }}">Kelola Booking</a></li>
                         
                         @endif
 
