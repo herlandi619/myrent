@@ -119,8 +119,45 @@
                     <li><a href="/bookings" class="block hover:text-gray-300">Booking</a></li>
 
                     @if(auth()->user()->role === 'admin')
-                        <li><a href="/items" class="block hover:text-gray-300">Items</a></li>
-                        <li><a href="/branches" class="block hover:text-gray-300">Cabang</a></li>
+                        {{-- <li><a href="/items" class="block hover:text-gray-300">Items</a></li>
+                        <li><a href="/branches" class="block hover:text-gray-300">Cabang</a></li> --}}
+
+                        <!-- Dropdown Mobile Master Data -->
+                        <li class="border-b border-gray-700 pb-2">
+                            <input type="checkbox" id="mdrop" class="hidden peer">
+                            <label for="mdrop" class="flex justify-between items-center py-2 cursor-pointer">
+                                <span>Master Data</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform peer-checked:rotate-180"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </label>
+
+                            <ul class="pl-4 space-y-2 max-h-0 overflow-hidden 
+                                    peer-checked:max-h-40 transition-all duration-300">
+
+                                <li>
+                                    <a href="/items"
+                                        class="block py-1 hover:text-gray-300 
+                                        {{ Request::is('items*') ? 'text-yellow-400 font-semibold' : 'text-white' }}">
+                                        Items
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/branches"
+                                        class="block py-1 hover:text-gray-300
+                                        {{ Request::is('branches*') ? 'text-yellow-400 font-semibold' : 'text-white' }}">
+                                        Cabang
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+
                         <li><a href="/admin/bookings" class="block hover:text-gray-300">Kelola Booking</a></li>
                         
                     @endif
