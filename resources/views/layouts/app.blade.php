@@ -23,7 +23,7 @@
 
                 <!-- Brand -->
                 <a href="/" class="text-xl font-semibold tracking-wide">
-                    Triple-A
+                    Rent-H
                 </a>
 
                 <!-- Hamburger untuk mobile -->

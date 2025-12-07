@@ -9,6 +9,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookingAdminController;
 use App\Http\Controllers\BookingManageController;
 use App\Http\Controllers\FinanceReportController;
@@ -46,10 +47,14 @@ Route::middleware('auth')->group(function () {
     | User Routes (Customer / Penyewa)
     |--------------------------------------------------------------------------
     */
-    Route::get('/', function () {
-        return view('dashboard'); // Dashboard user
-    })->name('dashboard');
+    // Route::get('/', function () {
+    //     return view('dashboard'); // Dashboard user
+    // })->name('dashboard');
 
+    
+    Route::get('/', [DashboardController::class, 'index'])
+        ->name('dashboard')
+        ->middleware('auth');
 
 
     // Booking

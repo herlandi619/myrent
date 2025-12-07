@@ -51,6 +51,9 @@ class BookingController extends Controller
         $hours = $start->diffInHours($end);
         $total = $hours * $item->hourly_rate;
 
+        // 🔥 Pembulatan ke ribuan terdekat + pastikan integer
+        $total = intval(round($total / 1000) * 1000);
+
         Booking::create([
             'user_id'     => Auth::id(),
             'item_id'     => $request->item_id,
@@ -62,8 +65,9 @@ class BookingController extends Controller
         ]);
 
         return redirect()->route('bookings.index')
-                         ->with('success', 'Booking berhasil dibuat!');
+                        ->with('success', 'Booking berhasil dibuat!');
     }
+
 
     public function show($id)
     {
