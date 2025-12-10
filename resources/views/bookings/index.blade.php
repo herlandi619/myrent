@@ -22,12 +22,12 @@
 
                 <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
                     <tr>
-                        <th class="px-6 py-3">Kode</th>
+                        <th class="px-6 py-3">No</th>
                         <th class="px-6 py-3">Item</th>
                         <th class="px-6 py-3">Cabang</th>
-                        <th class="px-6 py-3">Jam Mulai</th>
-                        <th class="px-6 py-3">Jam Selesai</th>
-                        <th class="px-6 py-3">Total Harga</th>
+                        {{-- <th class="px-6 py-3">Jam Mulai</th> --}}
+                        {{-- <th class="px-6 py-3">Jam Selesai</th> --}}
+                        {{-- <th class="px-6 py-3">Total Harga</th> --}}
                         <th class="px-6 py-3">Status</th>
                         <th class="px-6 py-3">Aksi</th>
                     </tr>
@@ -36,14 +36,15 @@
                 <tbody class="text-gray-700 text-sm">
                     @foreach($bookings as $b)
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium">{{ $b->id }}</td>
+                        {{-- <td class="px-6 py-4 font-medium">{{ $b->id }}</td> --}}
+                        <td class="px-6 py-4">{{ $loop->iteration }}</td>
                         <td class="px-6 py-4">{{ $b->item->name }}</td>
                         <td class="px-6 py-4">{{ $b->branch->name }}</td>
-                        <td class="px-6 py-4">{{ $b->start_time }}</td>
-                        <td class="px-6 py-4">{{ $b->end_time }}</td>
-                        <td class="px-6 py-4 font-semibold">
+                        {{-- <td class="px-6 py-4">{{ $b->start_time }}</td> --}}
+                        {{-- <td class="px-6 py-4">{{ $b->end_time }}</td> --}}
+                        {{-- <td class="px-6 py-4 font-semibold">
                             Rp {{ number_format($b->total_price, 0, ',', '.') }}
-                        </td>
+                        </td> --}}
                         <td class="px-6 py-4">
                             <span class="px-3 py-1 rounded-full text-xs
                                 @if($b->status == 'paid')

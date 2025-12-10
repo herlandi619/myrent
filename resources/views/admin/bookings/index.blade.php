@@ -12,6 +12,7 @@
     <table class="w-full table-auto border-collapse">
         <thead class="bg-gray-800 text-white">
             <tr>
+                <th class="p-2">No</th>
                 <th class="p-2">User</th>
                 <th class="p-2">Item</th>
                 <th class="p-2">Cabang</th>
@@ -24,6 +25,7 @@
         <tbody>
             @foreach($bookings as $b)
             <tr class="border hover:bg-gray-100 text-center">
+                <td class="p-2">{{ $loop->iteration }}</td>
                 <td class="p-2">{{ $b->user->name }}</td>
                 <td class="p-2">{{ $b->item->name }}</td>
                 <td class="p-2">{{ $b->branch->name }}</td>
